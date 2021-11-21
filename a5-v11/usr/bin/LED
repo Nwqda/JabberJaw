@@ -2,9 +2,9 @@
 
 # Replace those 3 variables to make it compatible 
 # with the LED of your device.
-RED_LED="/sys/class/leds/wmr-300:red:aoss/brightness"
-GREEN_LED="/sys/class/leds/wmr-300:green:aoss/brightness"
-BLUE_LED="/sys/class/leds/wmr-300:green:status/brightness"
+RED_LED="/sys/class/leds/a5-v11:red:power/brightness"
+GREEN_LED="/sys/class/leds/a5-v11:blue:system/brightness"
+BLUE_LED="/sys/class/leds/a5-v11:blue:system/brightness"
 
 colors=(0 0 0)
 pattern=(1 0 0 0 0 0)

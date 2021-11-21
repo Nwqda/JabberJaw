@@ -1,0 +1,6 @@
+#!/usr/bin/awk -f
+
+/rt3050-esw [^ ]* link changed 0x00/ { \
+    system( "ubus call network.interface.wan down") }
+/rt3050-esw [^ ]* link changed 0x01/ { \
+    system( "ubus call network.interface.wan up" ) }

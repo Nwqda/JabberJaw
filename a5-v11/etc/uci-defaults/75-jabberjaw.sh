@@ -11,28 +11,12 @@ echo $(uci get system.@system[0].hostname) > /proc/sys/kernel/hostname
 
 # Macchanger script executable
 chmod +x /etc/init.d/macchanger
+# Trick script to capture wan down/up event from kernel
+chmod +x /etc/init.d/rt3050-event-tracker
+
+# Hak5 scripts executable 
 chmod +x /usr/bin/LED
 chmod +x /usr/bin/NETMODE
-
-# Disable AutoSSH
-# /etc/init.d/autossh disable
-# /etc/init.d/autossh stop
-
-# Disable SSH server
-# /etc/init.d/sshd disable
-# /etc/init.d/sshd stop
-
-# Disable odhcpd
-# /etc/init.d/odhcpd disable
-# /etc/init.d/odhcpd stop
-
-# Disable uHTTPd web server
-# /etc/init.d/uhttpd disable
-# /etc/init.d/uhttpd stop
-
-# Enable Shark service
-# /etc/init.d/shark enable
-# /etc/init.d/shark start
 
 
 # Ensure the script is deleted after execution

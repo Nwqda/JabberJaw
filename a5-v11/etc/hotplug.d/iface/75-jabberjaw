@@ -1,0 +1,16 @@
+#!/bin/bash
+
+[ "$ACTION" == "ifup" ] && [ "$INTERFACE" == "wan" ] && {
+  if [[ -f "/usr/bin/nmap" ]]; then
+    logger -t DEBUG "New Ethernet connection detected. Execute payload..."
+    sh /root/payload/payload.sh
+  else
+    logger -t DEBUG "Nmap not installed, insert USB drive and wait..."
+    echo "255" > /sys/class/leds/a5-v11:blue:system/brightness
+    logger "STEP 4: Add extra packages."
+    opkg update && opkg install bash nmap macchanger
+    /etc/init.d/macchanger start
+    echo "0" > /sys/class/leds/a5-v11:blue:system/brightness
+    echo "255" > /sys/class/leds/a5-v11:red:power/brightness
+  fi
+}

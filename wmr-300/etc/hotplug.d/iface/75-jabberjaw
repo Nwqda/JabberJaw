@@ -1,0 +1,6 @@
+#!/bin/sh
+
+[ "$ACTION" == "ifup" ] && [ "$INTERFACE" == "wan" ] && {
+    logger -t DEBUG "New Ethernet connection detected. Execute payload...";
+    sh /root/payload/payload.sh
+}

@@ -70,4 +70,158 @@ GREEN_LED="/sys/class/leds/wmr-300:green:aoss/brightness"
 BLUE_LED="/sys/class/leds/wmr-300:green:status/brightness"
 ```
 
-### Under construction, the next part is coming soon...
+Once the path of the LEDs correctly filled we can now build the image.
+In order to reduce the size of the image as much as possible, since Nmap is quiet heavy (2.2MB), it is important to choose meticulously the packages to include our firmware. The LUCI GUI web interface will be removed in favor of Nmap which is the cornerstone of JabberJaw.
+
+```bash
+cd openwrt-imagebuilder-18.06.9-ramips-mt7620.Linux-x86_64
+make image PROFILE=wmr-300 PACKAGES="base-files busybox dnsmasq dropbear firewall fstools bash coreutils-sleep iptables kernel kmod-gpio-button-hotplug kmod-ipt-offload kmod-leds-gpio kmod-mt76 kmod-rt2800-pci kmod-rt2800-soc libc libgcc logd mtd netifd odhcp6c  opkg swconfig uci uclient-fetch wpad-mini nmap macchanger -luci -ppp -ppp-mod-pppoe -ip6tables -odhcpd-ipv6only" FILES=../JabberJaw/wmr-300/
+```
+Note:  This build with packages is only for devices that have at least 8MB of flash memory. For devices with 4MB the initial packages chosen will be different because it will be necessary to have a USB stick connected to the device during the first boot to extend the root filesystem. Once done another script will install the missing dependencies. 
+No worries, I will include the right make command for each device. If you need help with this don't hesitate to create a ticket in the "Issues" section.
+
+```
+Configuring terminfo.
+Configuring libubox.
+Configuring libuclient.
+Configuring uclient-fetch.
+Configuring libpthread.
+Configuring opkg.
+Configuring libubus.
+Configuring libjson-c.
+Configuring libblobmsg-json.
+Configuring ubusd.
+Configuring ubus.
+Configuring busybox.
+Configuring libncurses.
+Configuring libreadline.
+Configuring bash.
+Configuring libuci.
+Configuring libnl-tiny.
+Configuring swconfig.
+Configuring kmod-nf-conntrack.
+Configuring kmod-nf-flow.
+Configuring kmod-lib-crc-ccitt.
+Configuring iw-full.
+Configuring kmod-nf-reject.
+Configuring kmod-nf-ipt.
+Configuring kmod-ipt-core.
+Configuring kmod-ipt-conntrack.
+Configuring jshn.
+Configuring netifd.
+Configuring libjson-script.
+Configuring ubox.
+Configuring procd.
+Configuring jsonfilter.
+Configuring usign.
+Configuring openwrt-keyring.
+Configuring fstools.
+Configuring fwtool.
+Configuring base-files.
+Configuring kmod-nf-nat.
+Configuring libpcre.
+Configuring macchanger.
+Configuring wireless-regdb.
+Configuring kmod-cfg80211.
+Configuring hostapd-common.
+Configuring kmod-mac80211.
+Configuring kmod-lib-crc-itu-t.
+Configuring kmod-rt2x00-lib.
+Configuring kmod-rt2800-lib.
+Configuring coreutils.
+Configuring dnsmasq.
+Configuring kmod-mt76-core.
+Configuring kmod-mt76x02-common.
+Configuring kmod-mt76x2-common.
+Configuring kmod-mt76x2.
+Configuring kmod-mt7603.
+Configuring kmod-mt76.
+Configuring kmod-eeprom-93cx6.
+Configuring kmod-rt2x00-mmio.
+Configuring kmod-rt2x00-pci.
+Configuring kmod-rt2800-mmio.
+Configuring rt2800-pci-firmware.
+Configuring kmod-rt2800-pci.
+Configuring libxtables.
+Configuring libip4tc.
+Configuring libip6tc.
+Configuring kmod-nf-conntrack6.
+Configuring kmod-ipt-nat.
+Configuring firewall.
+Configuring odhcp6c.
+Configuring uci.
+Configuring wpad-mini.
+Configuring libpcap.
+Configuring libstdcpp.
+Configuring zlib.
+Configuring nmap.
+Configuring dropbear.
+Configuring mtd.
+Configuring kmod-leds-gpio.
+Configuring kmod-gpio-button-hotplug.
+Configuring logd.
+Configuring coreutils-sleep.
+Configuring iptables.
+Configuring kmod-rt2800-soc.
+Configuring kmod-ipt-offload.
+
+Finalizing root filesystem...
+
+Building images...
+Unable to open feeds configuration at openwrt-imagebuilder-18.06.9-ramips-mt7620.Linux-x86_64/scripts/feeds line 48.
+Parallel mksquashfs: Using 1 processor
+Creating 4.0 filesystem on openwrt-imagebuilder-18.06.9-ramips-mt7620.Linux-x86_64/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7620/root.squashfs, block size 262144.
+Pseudo file "/dev" exists in source filesystem "openwrt-imagebuilder-18.06.9-ramips-mt7620.Linux-x86_64/build_dir/target-mipsel_24kc_musl/root-ramips/dev".
+Ignoring, exclude it (-e/-ef) to override.
+[===========================================================================================================================\] 653/653 100%
+Exportable Squashfs 4.0 filesystem, xz compressed, data block size 262144
+  compressed data, compressed metadata, compressed fragments, no xattrs
+  duplicates are removed
+Filesystem size 4717.57 Kbytes (4.61 Mbytes)
+  24.19% of uncompressed filesystem size (19498.60 Kbytes)
+Inode table size 6644 bytes (6.49 Kbytes)
+  22.47% of uncompressed inode table size (29573 bytes)
+Directory table size 8830 bytes (8.62 Kbytes)
+  48.79% of uncompressed directory table size (18099 bytes)
+Number of duplicate files found 90
+Number of inodes 882
+Number of files 604
+Number of fragments 21
+Number of symbolic links  200
+Number of device nodes 1
+Number of fifo nodes 0
+Number of socket nodes 0
+Number of directories 77
+Number of ids (unique uids + gids) 1
+Number of uids 1
+  unknown (0)
+Number of gids 1
+  unknown (0)
+2820+1 records in
+2820+1 records out
+1444324 bytes (1.4 MB, 1.4 MiB) copied, 0.0180661 s, 79.9 MB/s
+9435+1 records in
+9435+1 records out
+4830790 bytes (4.8 MB, 4.6 MiB) copied, 0.0307931 s, 157 MB/s
+padding image to 005fd000
+padding image to 005fe000
+padding image to 00600000
+
+Calculating checksums...
+
+```
+
+Voila, you can now install your JabberJaw firmware into your device :)
+
+### PoC
+
+Video will be added soon.
+
+All Shark Jack payloads form Hak5 are compatible with JabberJaw.
+
+### What's next?
+
+For now, I have included the minimum to run all payloads using Nmap properly. The next step will be to add Tmate (https://tmate.io/) in order to have a remote access on the device and extend the JabberJaw capabilities. Also it is possible, but not sure yet, that I could  create a custom web interface to manage some important stuff such as payloads, change password, change the SSID etc.. This will be useful for the uninitiated OpenWrt users.
+
+### Note
+FOR EDUCATIONAL PURPOSE ONLY. 

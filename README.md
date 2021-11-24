@@ -22,8 +22,9 @@ Another major problem is the battery, the Shark Jack has a small battery built i
    and not used.
    
   -   The last option which is the easiest is to buy the Chinese router
-   MPR-A1 which integrates a 1800mah (4hours) battery and that you can
+   MPR-A1 (Or A2) which integrates a 1800mah (4hours) battery and that you can
    find on Aliexpress for ~18$.
+   - Another easy option is the PQI AirPen (6W41-0000R2002) which is more powerful than the MPR-A1 and also includes a 1200mah battery. Can be found for around ~15$ on second hand websites.
 
 Last thing, because of limitation on small travel routers I will not implement a GUI to save space. Everything will be managed via SSH. 
 
@@ -32,12 +33,15 @@ Note: All router with 4MB of memory flash will need an external USB flash drive 
 
 Device         | CPU (MHZ)         | Flash MB| RAM MB | Battery | More info|
 -------------| -----------| -----------| -----------| -----------|-----------|
+PQI AirPen | 400 |8|64|Yes (1200mah)|https://openwrt.org/toh/hwdata/pqi/pqi_air_pen
 MPR-A1 | 360 |4|16|Yes (1800mah)|https://openwrt.org/toh/hame/mpr-a1
 A5-V11 | 360 |4|16/32|No|https://openwrt.org/toh/unbranded/a5-v11
 Buffalo WMR-300 | 580 |8|64|No|https://openwrt.org/toh/buffalo/wmr-300
 Elecom WRH-300CR | 580 |16|64|No (But battery can be soldered)|https://openwrt.org/toh/hwdata/elecom/elecom_wrh-300cr
 
 That's all for now but I'll add more relevant routers later. 
+A list of potential interesting micro router with battery build in and compatible OpenWrt:
+https://openwrt.org/toh/views/toh_battery-powered
 
 ### Build your own JabberJaw firmware.
 
@@ -69,7 +73,6 @@ RED_LED="/sys/class/leds/wmr-300:red:aoss/brightness"
 GREEN_LED="/sys/class/leds/wmr-300:green:aoss/brightness"
 BLUE_LED="/sys/class/leds/wmr-300:green:status/brightness"
 ```
-
 Once the path of the LEDs correctly filled we can now build the image.
 In order to reduce the size of the image as much as possible, since Nmap is quiet heavy (2.2MB), it is important to choose meticulously the packages to include our firmware. The LUCI GUI web interface will be removed in favor of Nmap which is the cornerstone of JabberJaw.
 
@@ -217,7 +220,8 @@ Voila, you can now install your JabberJaw firmware into your device :)
 
 Video will be added soon.
 
-All Shark Jack payloads form Hak5 are compatible with JabberJaw.
+- The Mac address of the device will change automatically after each reboot.
+- All Shark Jack payloads from Hak5 are compatible with JabberJaw.
 
 ### What's next?
 

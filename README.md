@@ -33,11 +33,12 @@ Note: All router with 4MB of memory flash will need an external USB flash drive 
 
 Device         | CPU (MHZ)         | Flash MB| RAM MB | Battery | More info|
 -------------| -----------| -----------| -----------| -----------|-----------|
-PQI AirPen | 400 |8|64|Yes (1200mah)|https://openwrt.org/toh/hwdata/pqi/pqi_air_pen
+PQI AirPen | 400 |8|64|Yes (450mah)|https://openwrt.org/toh/hwdata/pqi/pqi_air_pen
 MPR-A1 | 360 |4|16|Yes (1800mah)|https://openwrt.org/toh/hame/mpr-a1
 A5-V11 | 360 |4|16/32|No|https://openwrt.org/toh/unbranded/a5-v11
 Buffalo WMR-300 | 580 |8|64|No|https://openwrt.org/toh/buffalo/wmr-300
-Elecom WRH-300CR | 580 |16|64|No (But battery can be soldered)|https://openwrt.org/toh/hwdata/elecom/elecom_wrh-300cr
+Elecom WRH-300CR | 580 |16|64|No (But small battery can be soldered)|https://openwrt.org/toh/hwdata/elecom/elecom_wrh-300cr
+VoCore2 | 580 |16|128|No (But small battery can be soldered)|https://openwrt.org/toh/hwdata/vocore/vocore_vocore2
 
 That's all for now but I'll add more relevant routers later. 
 A list of potential interesting micro router with battery build in and compatible OpenWrt:

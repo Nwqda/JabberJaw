@@ -1,0 +1,3 @@
+/etc/init.d/macchanger start
+/etc/init.d/rt3050-event-tracker /dev/kmsg &
+exit 0

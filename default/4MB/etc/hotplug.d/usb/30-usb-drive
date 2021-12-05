@@ -1,0 +1,7 @@
+#!/bin/bash
+
+[[ $ACTION == "add" ]] && {
+    echo "USB Drive plugged." > /tmp/usb_action
+} || {
+    echo "USB Drive unplugged." > /tmp/usb_action
+}

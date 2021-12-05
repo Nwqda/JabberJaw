@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Title:         Sample Nmap Payload for Shark Jack
+# Title:         Sample Nmap Payload for Shark Jack (PAYLOAD DEMO FOR JABBERJAW)
 # Author:        Hak5
 # Version:       1.0
 #

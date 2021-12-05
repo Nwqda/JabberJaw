@@ -24,7 +24,7 @@ Another major problem is the battery, the Shark Jack has a small battery built i
   -   The last option which is the easiest is to buy the Chinese router
    MPR-A1 (Or A2) which integrates a 1800mah (4hours) battery and that you can
    find on Aliexpress for ~18$.
-   - Another easy option is the PQI AirPen (6W41-0000R2002) which is more powerful than the MPR-A1 and also includes a 1200mah battery. Can be found for around ~15$ on second hand websites.
+   - Another easy option is the PQI AirPen (A400) which is more powerful than the MPR-A1 and also includes a 450mah battery. Can be found for around ~15$ on second hand websites.
 
 Last thing, because of limitation on small travel routers I will not implement a GUI to save space. Everything will be managed via SSH. 
 
@@ -216,6 +216,12 @@ Calculating checksums...
 ```
 
 Voila, you can now install your JabberJaw firmware into your device :)
+
+
+WiFi default password: jabberjaw
+SSH default IP: 172.16.24.1
+SSH default port: 22
+SSH default password: jabberjaw
 
 ### PoC
 

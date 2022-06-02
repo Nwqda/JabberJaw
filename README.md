@@ -2,7 +2,7 @@
 # JabberJaw
 
 JabberJaw is a re-code of the famous Shark Jack device developed by Hak5 which turn any OpenWrt compatible router into a portable network attack device.
-As the Shark Jack firmware is a slightly modified version of OpenWrt (18.06-SNAPSHOT) it is possible to create your own custom firmware adapted to any router.
+As the Shark Jack firmware is a slightly modified version of OpenWrt (18.06-SNAPSHOT) it is possible to create your own custom firmware tailored to any router.
 
 ![JabberJaw network attack tool](https://i.ibb.co/QCxmTjW/jabberjaw.png)
 
@@ -41,14 +41,14 @@ Elecom WRH-300CR | 580 |16|64|No (But small battery can be soldered)|https://ope
 VoCore2 | 580 |16|128|No (But small battery can be soldered)|https://openwrt.org/toh/hwdata/vocore/vocore_vocore2
 
 That's all for now but I'll add more relevant routers later. 
-A list of potential interesting micro router with battery build in and compatible OpenWrt:
+A list of potential interesting micro router with build in battery and compatible OpenWrt:
 https://openwrt.org/toh/views/toh_battery-powered
 
 ### Build your own JabberJaw firmware.
 
-In the following tutorial I will take as example the Buffalo WMR-300 which is a small travel router that I will transform into a Shark Jack. In your case adapt the tutorial to your device.
+In the following tutorial I will take as example the Buffalo WMR-300 which is a small travel router that I will transform into a Shark Jack device. In your case, adapt the tutorial to your device.
 
-The first thing to do is to clone the repository. Once cloned let’s download the OpenWrt image builder associated to the right architecture, in my case the architecture used by the WMR-300 is ramips/mt7620. And in order to save a maximum of space the version 18 of OpenWrt is recommended.
+The first thing to do is to clone this repository. Once cloned, let’s download the OpenWrt image builder associate to the right architecture, in my case the architecture used by the WMR-300 is ramips/mt7620. And in order to save a maximum of memory space the version 18 of OpenWrt is recommended.
 ```bash
 git clone https://github.com/Nwqda/JabberJaw.git
 cd JabberJaw
@@ -56,8 +56,10 @@ wget https://downloads.openwrt.org/releases/18.06.9/targets/ramips/mt7620/openwr
 tar xJf openwrt-imagebuilder-18.06.9-ramips-mt7620.Linux-x86_64.tar.xz
 ```
 
-Before compiling our firmware one important thing to do is to modify the management of the leds. Indeed the Shark Jack uses a combo of several colors (Red, Green, Blue, Mixed) to recognize for example when the device is in the middle of execution of the payload and when the execution of the payload is completed the led will change color. And on this point again each device has different configuration. So you have to modify the file /usr/bin/LED in order to indicate the correct path of the leds management. To find out this for your device you have to decompile an OpenWrt firmware pre-build to your device and look at the different files stored in /sys/class/leds/.
-I will write soon a complete article on my blog that will cover this step too.
+Before compiling the firmware one important thing to do is to modify the management of the leds. Indeed the Shark Jack uses a combo of several colors (Red, Green, Blue, Mixed) to recognize for example when the device is in the middle of the payload execution and when the execution of the payload is completed the led will change again by another color. And on this point, each device has different configuration. So to handle this it is important to modify the file /usr/bin/LED in order to indicate the correct leds management path. To find out this for your device you can download and decompile an OpenWrt firmware pre-build to your device and look at the different files stored in /sys/class/leds/.
+
+I will write soon a complete article on my blog that will cover this step too.<br>
+Update: Here is the detailled article: https://samy.link/blog/jabberjaw-convert-your-router-in-portable-network-attack-dev <br>
 
 File /usr/bin/LED:
 ```bash
@@ -75,13 +77,13 @@ GREEN_LED="/sys/class/leds/wmr-300:green:aoss/brightness"
 BLUE_LED="/sys/class/leds/wmr-300:green:status/brightness"
 ```
 Once the path of the LEDs correctly filled we can now build the image.
-In order to reduce the size of the image as much as possible, since Nmap is quiet heavy (2.2MB), it is important to choose meticulously the packages to include our firmware. The LUCI GUI web interface will be removed in favor of Nmap which is the cornerstone of JabberJaw.
+In order to reduce the size of the image as much as possible, since Nmap is quiet heavy (2.2MB), it is important to choose meticulously the packages to include in our firmware. The LUCI GUI web interface will be removed in favor of Nmap which is the cornerstone of JabberJaw.
 
 ```bash
 cd openwrt-imagebuilder-18.06.9-ramips-mt7620.Linux-x86_64
 make image PROFILE=wmr-300 PACKAGES="base-files busybox dnsmasq dropbear firewall fstools bash coreutils-sleep iptables kernel kmod-gpio-button-hotplug kmod-ipt-offload kmod-leds-gpio kmod-mt76 kmod-rt2800-pci kmod-rt2800-soc libc libgcc logd mtd netifd odhcp6c  opkg swconfig uci uclient-fetch wpad-mini nmap macchanger -luci -ppp -ppp-mod-pppoe -ip6tables -odhcpd-ipv6only" FILES=../JabberJaw/wmr-300/
 ```
-Note:  This build with packages is only for devices that have at least 8MB of flash memory. For devices with 4MB the initial packages chosen will be different because it will be necessary to have a USB stick connected to the device during the first boot to extend the root filesystem. Once done another script will install the missing dependencies. 
+Note: This build with packages is only for devices that have at least 8MB of flash memory. For devices with 4MB the initial packages chosen will be different because it will be necessary to have a USB stick connected to the device during the first boot to extend the root filesystem. Once done another script will install the missing dependencies. 
 No worries, I will include the right make command for each device. If you need help with this don't hesitate to create a ticket in the "Issues" section.
 
 ```
@@ -218,21 +220,21 @@ Calculating checksums...
 Voila, you can now install your JabberJaw firmware into your device :)
 
 
-WiFi default password: jabberjaw
-SSH default IP: 172.16.24.1
-SSH default port: 22
-SSH default password: jabberjaw
+WiFi default password: jabberjaw<br>
+SSH default IP: 172.16.24.1<br>
+SSH default port: 22<br>
+SSH default password: jabberjaw<br>
 
-### PoC
+### Video PoC
 
-Video will be added soon.
+[![Video PoC JabberJaw network attack tool](https://i.ibb.co/7gXHL9q/500px-youtube-social-play.png)](https://www.youtube.com/watch?v=B5So8t2lyR4)
 
 - The Mac address of the device will change automatically after each reboot.
 - All Shark Jack payloads from Hak5 are compatible with JabberJaw.
 
 ### What's next?
 
-For now, I have included the minimum to run all payloads using Nmap properly. The next step will be to add Tmate (https://tmate.io/) in order to have a remote access on the device and extend the JabberJaw capabilities. Also it is possible, but not sure yet, that I could  create a custom web interface to manage some important stuff such as payloads, change password, change the SSID etc.. This will be useful for the uninitiated OpenWrt users.
+For now, I have included the minimum to run all payloads using Nmap properly. The next step will be to add Tmate (https://tmate.io/) in order to have a remote access on the device and extend the JabberJaw capabilities. Also it is possible, but not sure yet, that I could create a custom web interface to manage some important stuff such as payloads, change password, change the SSID etc.. This will be useful for the uninitiated OpenWrt users.
 
 ### Note
-FOR EDUCATIONAL PURPOSE ONLY. 
+FOR EDUCATIONAL PURPOSE ONLY.
